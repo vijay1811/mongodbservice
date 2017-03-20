@@ -1,6 +1,7 @@
 package db
 
 import (
+	"querybuilder"
 	"service/protocol"
 )
 
@@ -9,9 +10,12 @@ type Database interface {
 	// return string and an error
 	ImportCollection(cip *protocol.ImportParam) (string, error)
 
-	// ImportCollection takes CitiesParam returns cities matching that parameters
+	// FindCities takes CitiesParam returns cities matching that parameters
 	FindCities(c *protocol.CitiesParam) ([]*City, error)
 
-	// ImportCollection takes PagingParam returns cities in the given page number and index
+	// CitiesPage takes PagingParam returns cities in the given page number and index
 	CitiesPage(p *protocol.PagingParam) ([]*City, error)
+
+	// QueryCities takes logical query string and returns cities matching the query
+	QueryCities(logicalQuery string, qb querybuilder.QueryBuilder) ([]*City, error)
 }
